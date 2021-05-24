@@ -3,8 +3,8 @@ import os
 import discord
 from dotenv import load_dotenv
 
-import validator
 import constants
+from discord_utils import get_response, get_image_response_text, get_image_source
 
 # Get env variables
 load_dotenv()
@@ -26,13 +26,28 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    # Validate message format
-    content = message.content
-    if validator.is_valid_command(content):
-        response = validator.get_matching_command(content)
-        await message.channel.send(response)
-    else:
+    # Parse words in message to list
+    words = message.content.split(' ')
+
+    # Check if message has sufficient words for a command
+    # or if prefix of message is correct
+    if len(words) < 2 or words[0].lower() != '!kevbot':
         return
+
+    # Get bot response to message
+    commands = constants.commands_tuple
+    try:
+        if set(words).intersection(set(commands)):
+            if 'image' in words:
+                filename = words[2]
+                message_response = get_image_response_text(filename)
+                image_source = get_image_source(filename)
+                await message.channel.send(message_response, file=discord.File('assets/' + image_source))
+            else:
+                response = get_response(words)
+                await message.channel.send(response)
+    except Exception:
+        raise discord.DiscordException
 
 
 client.run(TOKEN)
