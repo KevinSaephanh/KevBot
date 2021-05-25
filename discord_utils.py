@@ -3,22 +3,17 @@ import discord
 import constants
 
 
-# Takes in list of words and returns a matching response from dictionary
-def get_response(words: list[str]):
-    command = words[1].lower()
+def get_response(command: str, arg: str):
     commands = constants.commands_tuple
 
     # Check if command exists in tuple
     if command not in commands:
         raise ValueError(f'{command} is not a valid command!')
 
-    sub_command = words[2]
     if command == commands[0]:
-        return constants.faces.get(sub_command)
+        return constants.friends.get(arg)
     elif command == commands[1]:
-        return constants.friends.get(sub_command)
-    elif command == commands[2]:
-        return constants.game.get(sub_command)
+        return constants.game.get(arg)
 
 
 def get_image_response_text(filename: str):
