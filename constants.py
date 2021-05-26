@@ -1,15 +1,17 @@
-# Tuple of acceptable commands
-commands_tuple = ('friend', 'game', 'image')
+COMMAND_PREFIX = '!kevbot '
+ASSETS_PATH = 'assets/'
 
 # Messages that the bot will add reactions to
 BAD_BOT = 'bad bot'
+
+# Tuple of acceptable commands
+commands_tuple = ('friend', 'game', 'image')
 
 # Dictionaries for responses
 game = {
     '1v1': 'Peak me then!',
     'ace': 'AAAAAAHHHHH',
-    'kevwin': 'Wahoo!',
-    'peak': 'Peak with meeeee'
+    'kevwin': 'Wahoo!'
 }
 friends = {
     'chong': 'Mr. Dictator no rage please owo',
