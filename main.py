@@ -15,13 +15,6 @@ GUILD = os.getenv('DISCORD_GUILD')
 bot = commands.Bot(command_prefix=constants.COMMAND_PREFIX)
 
 
-@bot.command(name='bad')
-async def bad_bot(ctx, args):
-    if args == 'bot':
-        angry_emoji = constants.emojis.get('angry')
-        await ctx.message.add_reaction(angry_emoji)
-
-
 @bot.command()
 async def friend(ctx, arg):
     response = get_response('friend', arg)
@@ -42,6 +35,31 @@ async def image(ctx, arg):
         message_response,
         file=discord.File(constants.ASSETS_PATH + image_source)
     )
+
+
+@bot.event
+async def on_message(message):
+    content = message.content
+    channel = message.channel
+    last_message = await channel.fetch_message(message.channel.last_message_id)
+    author = last_message.author.name
+
+    if content in constants.trigger_messages and author != constants.KEVBOT:
+        await get_emoji_reaction(message)
+    await bot.process_commands(message)
+
+
+async def get_emoji_reaction(message):
+    content = message.content
+    emojis = constants.emojis
+    trigger_messages = constants.trigger_messages
+
+    if content == trigger_messages.get('bad bot'):
+        angry_emoji = emojis.get('angry')
+        await message.add_reaction(angry_emoji)
+    elif content == trigger_messages.get('good bot'):
+        smile_emoji = emojis.get('smile')
+        await message.add_reaction(smile_emoji)
 
 
 bot.run(TOKEN)

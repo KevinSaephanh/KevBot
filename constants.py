@@ -1,11 +1,15 @@
 COMMAND_PREFIX = '!kevbot '
+KEVBOT = 'KevBot'
 ASSETS_PATH = 'assets/'
-
-# Messages that the bot will add reactions to
-BAD_BOT = 'bad bot'
 
 # Tuple of acceptable commands
 commands_tuple = ('friend', 'game', 'image')
+
+# Messages that the bot will add reactions to
+trigger_messages = {
+    'bad bot': 'bad bot',
+    'good bot': 'good bot'
+}
 
 # Dictionaries for responses
 game = {
@@ -45,7 +49,7 @@ emojis = {
     'smug': '<02smug:846550746320601109>',
     'lewd_face': '<7974_rimuru_lewd_hearteyes:846550748241723392>',
     'hehe': '<Hehe:846550748979396628>',
-    'smile': '<tachi_smile:8465507a49139959849>',
+    'smile': '<tachi_smile:846550749139959849>',
     'awoo': '<AwOo:846550749177315330>',
     'angry': '<Angry:846551132154757130>',
     'simp': '<simp:846551132884959242>'
